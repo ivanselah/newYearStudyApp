@@ -36,9 +36,13 @@ export default function Home() {
     }
   }, [currPage, queryClient]);
 
-  const { data, isLoading, isError, error } = useQuery<PostsState[]>(['posts', currPage], () => fetchPosts(currPage), {
-    keepPreviousData: true,
-  });
+  const { data, isLoading, isFetching, isError, error } = useQuery<PostsState[]>(
+    ['posts', currPage],
+    () => fetchPosts(currPage),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   if (isError) {
     return (
@@ -48,6 +52,10 @@ export default function Home() {
       </>
     );
   }
+
+  // if (isFetching) {
+  //   return <span>isFetching...</span>;
+  // }
 
   if (isLoading) {
     return <span>loading...</span>;
